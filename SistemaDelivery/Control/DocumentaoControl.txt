@@ -1,0 +1,5 @@
+COMUNICAÇÃO DIRETA COM AS VIEWS
+
+ProdutoServices.cs      (CRUD de Produtos usando o DbContext)
+PedidoServices.cs       (Lógica do carrinho/balcão)
+AutenticacaoService.cs  (Valida regras e chama o LoginRepository)
