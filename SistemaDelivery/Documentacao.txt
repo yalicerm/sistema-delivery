@@ -1,0 +1,11 @@
+Luisa vai inserir as Duas telas WPF:
+
+1 Tela
+LoginUsuarioWindows.xaml
+
+2 Tela:
+	DeliveryMainWindow.xaml
+
+
+Cada Tela trabalhará diretamento com a pasta Control. Cada verificação, validção e regra é feito no Control. A pasta View é SOMENTE
+para inserir os elementos.

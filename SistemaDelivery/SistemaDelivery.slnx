@@ -1,0 +1,26 @@
+<Solution>
+  <Folder Name="/Control/">
+    <File Path="AutenticacaoService.cs" />
+    <File Path="DocumentaoControl.txt" />
+    <File Path="PedidoServices.cs" />
+    <File Path="ProdutoServices.cs" />
+  </Folder>
+  <Folder Name="/DataBase/">
+    <File Path="DeliveryDBContext.cs" />
+    <File Path="LoginRepository.cs" />
+  </Folder>
+  <Folder Name="/Model/">
+    <File Path="Bebida.cs" />
+    <File Path="ItemPedido.cs" />
+    <File Path="Pedido.cs" />
+    <File Path="Prato.cs" />
+    <File Path="Produto.cs" />
+    <File Path="Usuario.cs" />
+  </Folder>
+  <Folder Name="/View/">
+    <File Path="Documentacao.txt" />
+    <Project Path="../DeliveryMainWindow/DeliveryMainWindow.csproj" Id="7a9f16d4-a269-4daa-9858-0a9ca3617aaa" />
+    <Project Path="../LoginUsuarioWindows/LoginUsuarioWindows.csproj" Id="4c8b66eb-b9b5-4b46-9ea3-fee5a188060d" />
+  </Folder>
+  <Project Path="SistemaDelivery.csproj" />
+</Solution>
