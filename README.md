@@ -30,6 +30,3 @@ No desenvolvimento deste projeto, a Inteligência Artificial foi utilizada como 
 - Visual Studio 2022 (com workload de desenvolvimento Desktop .NET).
 - Servidor MySQL local ou em cloud configurado.
 
-**Passos:**
-1. Clona este repositório:
-   ```bash
