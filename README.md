@@ -19,7 +19,7 @@ O projeto segue a estruturação em camadas **MVC (Model-View-Controller/Service
 ## 🤖 Uso de Inteligência Artificial (Declaração)
 > **Nível IA-2 (Automação Guiada)**
 
-No desenvolvimento deste projeto, a Inteligência Artificial foi utilizada como ferramenta de assistência sob supervisão humana contínua[cite: 1]. 
+No desenvolvimento deste projeto, a Inteligência Artificial foi utilizada como ferramenta de assistência sob supervisão humana contínua. 
 - **Planeamento:** Utilização de IA estruturar o diagrama UML e validar a arquitetura relacional.
 - **Implementação:** Assistência na geração de protótipos de código (ex: *boilerplates* do Entity Framework e configurações iniciais WPF) com posterior revisão crítica, refatoração manual e adaptação às regras de negócio da equipe.
 - **Controlo de Qualidade:** O domínio intelectual sobre a solução final manteve-se exclusivamente com os autores.
@@ -27,6 +27,6 @@ No desenvolvimento deste projeto, a Inteligência Artificial foi utilizada como 
 ## 🛠️ Como Executar o Projeto
 
 **Pré-requisitos:**
-- Visual Studio 2022 (com workload de desenvolvimento Desktop .NET).
+- Visual Studio (com workload de desenvolvimento Desktop .NET).
 - Servidor MySQL local ou em cloud configurado.
 
