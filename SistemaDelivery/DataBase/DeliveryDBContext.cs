@@ -22,7 +22,7 @@ namespace SistemaDelivery.DataBase
             if (!optionsBuilder.IsConfigured)
             {
 
-                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=DeliveryDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer(ConexaoBanco.StringConexao);
 
             }
         }
@@ -65,10 +65,26 @@ namespace SistemaDelivery.DataBase
             modelBuilder.Entity<ItemPedido>()
                 .Property(i => i.PrecoUnitario)
                 .HasColumnType("decimal(10,2)");
+
+            //Configuração da tabela de Usuarios
+            modelBuilder.Entity<Usuario>(usuario =>
+            {
+                usuario.Property(u => u.Cpf).HasMaxLength(11).IsRequired(); //Definindo o tamanho máximo do CPF como 11 caracteres e tornando o campo obrigatório
+                usuario.HasIndex(u => u.Cpf).IsUnique(); //Garantindo que o CPF seja único no banco de dados
+                usuario.Property(u => u.Nome).HasMaxLength(100).IsRequired(); //Definindo o tamanho máximo do Nome como 100 caracteres e tornando o campo obrigatório
+                usuario.Property(u => u.Senha).HasMaxLength(50).IsRequired(); //Definindo o tamanho máximo da Senha como 50 caracteres e tornando o campo obrigatório
+                usuario.Property(u => u.Cargo).HasMaxLength(20).IsRequired(); //Definindo o tamanho máximo do Cargo como 20 caracteres e tornando o campo obrigatório
+
+                //Criando alguns Usuários Iniciais para testar a página login
+                usuario.HasData(
+                    new Usuario { Id = 1, Cpf = "11111111111", Senha = "gerente123", Cargo = "Gerente" },
+                    new Usuario { Id = 2, Cpf = "22222222222", Senha = "atendente123", Cargo = "Atendente" });
+            });
         }
 
     }
 }
+
 
 
 
