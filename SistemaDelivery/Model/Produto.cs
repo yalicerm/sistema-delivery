@@ -1,9 +1,13 @@
 using System;
 
-//Classe produto é abstrata pois vamos trabalhar com as classes Pratos e Bebida
-public abstract class Produto
+namespace SistemaDelivery.Model
 {
-    public int Id { get; set; }
-    public string Nome { get; set; }
-    public decimal Valor { get; set; }
+    //Classe produto é abstrata pois vamos trabalhar com as classes Pratos e Bebida
+    public abstract class Produto
+    {
+        public int IdProduto { get; set; }
+        public string Nome { get; set; }
+        public decimal Valor { get; set; }
+    }
+
 }

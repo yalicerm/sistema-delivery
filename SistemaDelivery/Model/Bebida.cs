@@ -1,7 +1,10 @@
 using System;
 
-public class Bebida : Produto
+namespace SistemaDelivery.Model
 {
-    public int capacidadeML {  get; set; }
-    public bool EhAlcoolica { get; set; }
+    public class Bebida : Produto
+    {
+        public int capacidadeML { get; set; }
+        public bool EhAlcoolica { get; set; }
+    }
 }

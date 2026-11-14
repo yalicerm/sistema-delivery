@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SistemaDelivery\\SistemaDelivery.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Faculdade\\Projetos-Faculdade\\SistemaDeliveryRepository\\sistema-delivery\\SistemaDelivery\\Novo Arquivo||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SistemaDelivery\\Novo Arquivo||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Faculdade\\Projetos-Faculdade\\SistemaDeliveryRepository\\sistema-delivery\\SistemaDelivery\\DataBase\\DeliveryDBContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SistemaDelivery\\DataBase\\DeliveryDBContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Faculdade\\Projetos-Faculdade\\SistemaDeliveryRepository\\sistema-delivery\\SistemaDelivery\\Model\\Usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SistemaDelivery\\Model\\Usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Faculdade\\Projetos-Faculdade\\SistemaDeliveryRepository\\sistema-delivery\\SistemaDelivery\\DataBase\\LoginRepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SistemaDelivery\\DataBase\\LoginRepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,32 +42,34 @@
               "RelativeToolTip": "SistemaDelivery\\SistemaDelivery.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-11-14T18:50:10.695Z",
+              "WhenOpened": "2026-11-14T19:15:53.646Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LoginRepository.cs",
+              "DocumentMoniker": "C:\\Faculdade\\Projetos-Faculdade\\SistemaDeliveryRepository\\sistema-delivery\\SistemaDelivery\\DataBase\\LoginRepository.cs",
+              "RelativeDocumentMoniker": "SistemaDelivery\\DataBase\\LoginRepository.cs",
+              "ToolTip": "C:\\Faculdade\\Projetos-Faculdade\\SistemaDeliveryRepository\\sistema-delivery\\SistemaDelivery\\DataBase\\LoginRepository.cs",
+              "RelativeToolTip": "SistemaDelivery\\DataBase\\LoginRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-14T19:11:37.069Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Novo Arquivo",
-              "DocumentMoniker": "C:\\Faculdade\\Projetos-Faculdade\\SistemaDeliveryRepository\\sistema-delivery\\SistemaDelivery\\Novo Arquivo",
-              "RelativeDocumentMoniker": "SistemaDelivery\\Novo Arquivo",
-              "ToolTip": "C:\\Faculdade\\Projetos-Faculdade\\SistemaDeliveryRepository\\sistema-delivery\\SistemaDelivery\\Novo Arquivo",
-              "RelativeToolTip": "SistemaDelivery\\Novo Arquivo",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-11-14T18:49:52.436Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Usuario.cs",
-              "DocumentMoniker": "C:\\Faculdade\\Projetos-Faculdade\\SistemaDeliveryRepository\\sistema-delivery\\SistemaDelivery\\Model\\Usuario.cs",
-              "RelativeDocumentMoniker": "SistemaDelivery\\Model\\Usuario.cs",
-              "ToolTip": "C:\\Faculdade\\Projetos-Faculdade\\SistemaDeliveryRepository\\sistema-delivery\\SistemaDelivery\\Model\\Usuario.cs",
-              "RelativeToolTip": "SistemaDelivery\\Model\\Usuario.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Title": "DeliveryDBContext.cs",
+              "DocumentMoniker": "C:\\Faculdade\\Projetos-Faculdade\\SistemaDeliveryRepository\\sistema-delivery\\SistemaDelivery\\DataBase\\DeliveryDBContext.cs",
+              "RelativeDocumentMoniker": "SistemaDelivery\\DataBase\\DeliveryDBContext.cs",
+              "ToolTip": "C:\\Faculdade\\Projetos-Faculdade\\SistemaDeliveryRepository\\sistema-delivery\\SistemaDelivery\\DataBase\\DeliveryDBContext.cs",
+              "RelativeToolTip": "SistemaDelivery\\DataBase\\DeliveryDBContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-14T18:17:14.26Z"
+              "WhenOpened": "2026-11-14T19:11:35.921Z",
+              "EditorCaption": ""
             }
           ]
         },

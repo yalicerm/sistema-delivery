@@ -1,6 +1,10 @@
 ﻿using System;
+using SistemaDelivery.Model;
 
-public class LoginRepository
+namespace SistemaDelivery.DataBase
 {
-	
+    public class LoginRepository
+    {
+
+    }
 }
