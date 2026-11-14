@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace LoginUsuarioWindows
+namespace LoginMainWindow
 {
     /// <summary>
     /// Interaction logic for App.xaml
