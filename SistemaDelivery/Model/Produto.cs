@@ -6,7 +6,7 @@ namespace SistemaDelivery.Model
     public abstract class Produto
     {
         public int IdProduto { get; set; }
-        public string Nome { get; set; }
+        public string Nome { get; set; } = string.Empty;
         public decimal Valor { get; set; }
     }
 

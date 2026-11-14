@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore;
 using SistemaDelivery.Model;
 
@@ -13,6 +13,7 @@ namespace SistemaDelivery.DataBase
         public DbSet<Bebida> Bebidas { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<ItemPedido> ItensPedidos { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
 
         // Configurando a conexão com o banco de dados (Encontra no README do próprio pacote SQL)
@@ -32,7 +33,7 @@ namespace SistemaDelivery.DataBase
             base.OnModelCreating(modelBuilder);
 
             //Configurações das chaves primárias das Classes Produto, Pedido e ItemPedido
-            modelBuilder.Entity<Produto>().HasKey(p => p.Id);
+            modelBuilder.Entity<Produto>().HasKey(p => p.IdProduto);
             modelBuilder.Entity<Pedido>().HasKey(p => p.IdPedido);
             modelBuilder.Entity<ItemPedido>().HasKey(i => i.IdItem);
 
@@ -42,7 +43,7 @@ namespace SistemaDelivery.DataBase
             modelBuilder.Entity<ItemPedido>()
                 .HasOne(i => i.Pedido)
                 .WithMany(p => p.Itens)
-                .HasForeignKey(i => i.ProdutoId)
+                .HasForeignKey(i => i.PedidoId)
                 .OnDelete(DeleteBehavior.Cascade); //Apaga os itens do pedido quando o pedido for deletado
 
             // Configurando o relacionamento entre ItemPedido e Produto

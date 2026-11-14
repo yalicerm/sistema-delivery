@@ -1,6 +1,7 @@
-﻿using System;
-
-public class ProdutoService
+namespace SistemaDelivery.Control
 {
-    
+    public class ProdutoService
+    {
+
+    }
 }

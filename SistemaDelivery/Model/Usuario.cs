@@ -5,10 +5,10 @@ namespace SistemaDelivery.Model
     public class Usuario
     {
         public int Id { get; set; }
-        public string Cpf { get; set; }
-        public string Senha { get; set; }
-        public string Nome { get; set; }
-        public string Cargo { get; set; } //Pode ser um Atendende ou um Gerente que acessa o sistema
+        public string Cpf { get; set; } = string.Empty;
+        public string Senha { get; set; } = string.Empty;
+        public string Nome { get; set; } = string.Empty;
+        public string Cargo { get; set; } = string.Empty; //Pode ser um Atendende ou um Gerente que acessa o sistema
 
     }
 }

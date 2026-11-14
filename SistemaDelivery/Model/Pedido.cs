@@ -6,7 +6,7 @@ namespace SistemaDelivery.Model {
     {
         public int IdPedido { get; set; }
         public DateTime DataHora { get; set; }
-        public string Status { get; set; } // "Finalizado", "Cancelado"
+        public string Status { get; set; } = string.Empty; // "Finalizado", "Cancelado"
         public decimal ValorTotal { get; set; }
 
         //Criar uma coleção de ItemPedido

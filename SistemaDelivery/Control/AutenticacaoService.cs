@@ -1,6 +1,7 @@
-﻿using System;
-
-public class AutenticacaoService
+namespace SistemaDelivery.Control
 {
-	
+    public class AutenticacaoService
+    {
+
+    }
 }

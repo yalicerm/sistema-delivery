@@ -12,9 +12,9 @@ namespace SistemaDelivery.Model
         // Criando variável para facilitar na atribuição das chaves estrangeiras (FK)
         //ItemPedido recebe ID do Pedido e o ID do produto
         public int PedidoId { get; set; }
-        public Pedido Pedido { get; set; }
+        public Pedido Pedido { get; set; } = null!;
 
         public int ProdutoId { get; set; }
-        public Produto Produto { get; set; }
+        public Produto Produto { get; set; } = null!;
     }
 }
