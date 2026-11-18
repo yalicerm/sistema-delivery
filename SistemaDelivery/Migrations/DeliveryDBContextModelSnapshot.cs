@@ -113,23 +113,48 @@ namespace SistemaDelivery.Migrations
 
                     b.Property<string>("Cargo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Cpf")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Senha")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Cpf")
+                        .IsUnique();
+
                     b.ToTable("Usuarios");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cargo = "Gerente",
+                            Cpf = "11111111111",
+                            Nome = "Gerente Teste",
+                            Senha = "gerente123"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Cargo = "Atendente",
+                            Cpf = "22222222222",
+                            Nome = "Atendente Teste",
+                            Senha = "atendente123"
+                        });
                 });
 
             modelBuilder.Entity("SistemaDelivery.Model.Acompanhamento", b =>

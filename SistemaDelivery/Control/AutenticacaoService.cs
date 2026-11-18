@@ -28,11 +28,10 @@ namespace SistemaDelivery.Control
             if (cpfFormatado.Length != 11 || string.IsNullOrEmpty(cpfFormatado))
             {
                 throw new ArgumentException("CPF inválido");
-                return null;
             }
 
             //Se tudo deu certo, ele vai chamar o método BuscarUsuario da interface IUsuarioRepository para buscar o usuário no banco de dados através do CPF e Senha
-            return _usuarioRepository.BuscarUsuario(cpf, senha);
+            return _usuarioRepository.BuscarUsuario(cpfFormatado, senha);
         }
     }
 }

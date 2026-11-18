@@ -40,7 +40,8 @@ namespace SistemaDelivery.DataBase
                     Id = leitor.GetInt32(leitor.GetOrdinal("Id")),
                     Nome = leitor.GetString(leitor.GetOrdinal("Nome")),
                     Cpf = leitor.GetString(leitor.GetOrdinal("Cpf")),
-                    Senha = leitor.GetString(leitor.GetOrdinal("Senha"))
+                    Senha = leitor.GetString(leitor.GetOrdinal("Senha")),
+                    Cargo = leitor.GetString(leitor.GetOrdinal("Cargo"))
                 };
             }
              

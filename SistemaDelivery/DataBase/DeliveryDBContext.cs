@@ -77,8 +77,8 @@ namespace SistemaDelivery.DataBase
 
                 //Criando alguns Usuários Iniciais para testar a página login
                 usuario.HasData(
-                    new Usuario { Id = 1, Cpf = "11111111111", Senha = "gerente123", Cargo = "Gerente" },
-                    new Usuario { Id = 2, Cpf = "22222222222", Senha = "atendente123", Cargo = "Atendente" });
+                    new Usuario { Id = 1, Cpf = "11111111111", Senha = "gerente123", Nome = "Gerente Teste", Cargo = "Gerente" },
+                    new Usuario { Id = 2, Cpf = "22222222222", Senha = "atendente123", Nome = "Atendente Teste", Cargo = "Atendente" });
             });
         }
 
