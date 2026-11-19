@@ -218,7 +218,6 @@ SistemaDelivery/
 |---|---|
 | Alice Resende | Banco de dados, entidades, migrations, login com SQL manual, pagamento e integração |
 | Luisa Mello | Telas WPF, identidade visual e serviços ligados às telas |
-| Nicole Bassani | |
 
 ## 🤖 Uso de Inteligência Artificial (Nível IA-2)
 
