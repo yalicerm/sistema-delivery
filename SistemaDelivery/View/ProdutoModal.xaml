@@ -1,0 +1,46 @@
+<Window x:Class="SistemaDelivery.View.ProdutoModal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Produto" Width="440" SizeToContent="Height"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterOwner"
+        FontFamily="{StaticResource AppFont}" Foreground="{StaticResource TextBrush}"
+        PreviewKeyDown="Window_PreviewKeyDown">
+
+    <Border Margin="14" Background="White" CornerRadius="8" Padding="24,22">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="18" ShadowDepth="0" Opacity="0.35"/>
+        </Border.Effect>
+
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Background="Transparent" Margin="0,0,0,18"
+                        MouseLeftButtonDown="Cabecalho_MouseLeftButtonDown">
+                <TextBlock FontFamily="{StaticResource IconFont}" FontSize="18"
+                           VerticalAlignment="Center"/>
+                <Image Source="/View/Assets/lanche.png" Width="20" Margin="0,0,10,0"/>
+                <TextBlock x:Name="txtTitulo" Text="Novo produto" FontSize="14" FontWeight="Bold"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <TextBlock Text="Nome do produto*" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="txtNome" Style="{StaticResource FieldTextBox}" MaxLength="100" Margin="0,0,0,14"/>
+
+            <TextBlock Text="Categoria*" Style="{StaticResource FieldLabel}"/>
+            <ComboBox x:Name="cmbCategoria" Style="{StaticResource FieldComboBox}" Tag="Selecione uma categoria"
+                      SelectionChanged="Categoria_SelectionChanged" Margin="0,0,0,14"/>
+
+            <TextBlock Text="Preço*" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="txtPreco" Style="{StaticResource FieldTextBox}" Margin="0,0,0,14"/>
+
+            <TextBlock x:Name="lblTempo" Text="Tempo de preparo*" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="txtTempo" Style="{StaticResource FieldTextBox}" Margin="0,0,0,22"/>
+
+            <Grid>
+                <Button Content="Fechar" Style="{StaticResource SecondaryButton}" HorizontalAlignment="Left"
+                        Click="Fechar_Click"/>
+                <Button Content="Salvar" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Right"
+                        Click="Salvar_Click"/>
+            </Grid>
+        </StackPanel>
+    </Border>
+</Window>

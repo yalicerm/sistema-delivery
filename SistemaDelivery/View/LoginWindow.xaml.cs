@@ -1,24 +1,61 @@
-﻿using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using SistemaDelivery.Control;
+using SistemaDelivery.Model;
 
-namespace LoginMainWindow
+namespace SistemaDelivery.View;
+
+// View: só trata eventos de tela. A validação e a regra de login estão em AutenticacaoService.
+public partial class LoginWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    private readonly AutenticacaoService _autenticacao = new();
+
+    public LoginWindow()
     {
-        public MainWindow()
+        InitializeComponent();
+        txtCpf.Focus();
+    }
+
+    private void Entrar_Click(object sender, RoutedEventArgs e)
+    {
+        txtErro.Visibility = Visibility.Collapsed;
+
+        try
         {
-            InitializeComponent();
+            var senha = tglSenha.IsChecked == true ? txtSenhaVisivel.Text : pwdSenha.Password;
+            var usuario = _autenticacao.Autenticar(txtCpf.Text, senha);
+
+            var principal = new DeliveryWindow(usuario);
+            Application.Current.MainWindow = principal;
+            principal.Show();
+            Close();
         }
+        catch (RegraDeNegocioException ex)
+        {
+            MostrarErro(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            MostrarErro("Não foi possível acessar o banco de dados: " + ex.GetBaseException().Message);
+        }
+    }
+
+    // Alterna entre PasswordBox (oculta) e TextBox (visível), mantendo o texto digitado
+    private void MostrarSenha_Click(object sender, RoutedEventArgs e)
+    {
+        var visivel = tglSenha.IsChecked == true;
+
+        if (visivel)
+            txtSenhaVisivel.Text = pwdSenha.Password;
+        else
+            pwdSenha.Password = txtSenhaVisivel.Text;
+
+        txtSenhaVisivel.Visibility = visivel ? Visibility.Visible : Visibility.Collapsed;
+        pwdSenha.Visibility = visivel ? Visibility.Collapsed : Visibility.Visible;
+    }
+
+    private void MostrarErro(string mensagem)
+    {
+        txtErro.Text = mensagem;
+        txtErro.Visibility = Visibility.Visible;
     }
 }
