@@ -1,0 +1,112 @@
+<UserControl x:Class="SistemaDelivery.View.PedidosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid Margin="14">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Cabeçalho -->
+        <Border Grid.Row="0" Style="{StaticResource HeaderCard}">
+            <StackPanel>
+                <TextBlock Text="Pedidos" FontSize="22" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}"/>
+                <TextBlock Text="Aqui você visualiza os pedidos feitos" FontSize="12"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Lista -->
+        <Border Grid.Row="1" Style="{StaticResource ContentCard}" Margin="0,14,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="0,0,0,18">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Busca (usa a consulta SQL manual do PedidoService) -->
+                    <Grid Grid.Column="0">
+                        <TextBox x:Name="txtBusca" Style="{StaticResource FieldTextBox}" Height="36"
+                                 Padding="34,0,8,0" TextChanged="Busca_TextChanged"/>
+                        <TextBlock Text="&#xE721;" FontFamily="{StaticResource IconFont}" Foreground="#999999"
+                                   VerticalAlignment="Center" Margin="12,0,0,0" IsHitTestVisible="False"/>
+                        <TextBlock Text="Buscar pedidos" Foreground="#AAAAAA" FontSize="12" Margin="36,0,0,0"
+                                   VerticalAlignment="Center" IsHitTestVisible="False">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=txtBusca}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+
+                    <Button Grid.Column="1" Style="{StaticResource PrimaryButton}" Height="36" Margin="14,0,0,0"
+                            Click="NovoPedido_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE710;" FontFamily="{StaticResource IconFont}" FontSize="12"
+                                       Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Novo pedido"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <ItemsControl x:Name="lstPedidos">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource RowCard}">
+                                        <Grid>
+                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <TextBlock Text="{Binding NomeComanda}" FontSize="15" FontWeight="SemiBold"/>
+                                                <TextBlock Text="{Binding DataHora, StringFormat='Data: {0:dd/MM/yyyy}'}"
+                                                           FontSize="10" Foreground="{StaticResource MutedBrush}" Margin="0,2,0,0"/>
+                                            </StackPanel>
+
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                                <Border Style="{StaticResource StatusChip}">
+                                                    <TextBlock Text="{Binding Status, Converter={StaticResource StatusTexto}}"/>
+                                                </Border>
+
+                                                <!-- Em andamento: lápis (editar). Finalizado/cancelado: olho (só visualizar) -->
+                                                <Button Click="AbrirPedido_Click">
+                                                    <Button.Style>
+                                                        <Style TargetType="Button" BasedOn="{StaticResource IconButton}">
+                                                            <Setter Property="Margin" Value="22,0,0,0"/>
+                                                            <Setter Property="Content" Value="&#xE7B3;"/>
+                                                            <Setter Property="ToolTip" Value="Visualizar"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Status}" Value="Em andamento">
+                                                                    <Setter Property="Content" Value="&#xE70F;"/>
+                                                                    <Setter Property="ToolTip" Value="Editar"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Button.Style>
+                                                </Button>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <TextBlock x:Name="txtVazio" Text="Nenhum pedido encontrado." Foreground="{StaticResource MutedBrush}"
+                                   HorizontalAlignment="Center" Margin="0,30,0,0" Visibility="Collapsed"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

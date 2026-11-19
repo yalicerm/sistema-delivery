@@ -1,12 +1,34 @@
 <Window x:Class="SistemaDelivery.View.DeliveryWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SistemaDelivery.View"
-        mc:Ignorable="d"
-        Title="DeliveryWindow" Height="450" Width="800">
-    <Grid>
+        Title="Yummy" Width="1100" Height="700" MinWidth="900" MinHeight="560"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="{StaticResource AppFont}" Foreground="{StaticResource TextBrush}"
+        Background="{StaticResource PageBrush}">
 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="{StaticResource PrimaryBrush}">
+            <DockPanel>
+                <Button DockPanel.Dock="Bottom" Content="Sair" Click="Sair_Click" Margin="24,0,24,18"
+                        Background="#C93134" Style="{StaticResource BaseButton}" Height="30"/>
+
+                <StackPanel>
+
+                    <Image Source="/View/Assets/logo.png" Height="49" Width="148" Margin="0,30,0,40"/>
+                    
+                    <RadioButton x:Name="rbPedidos" Content="Pedidos" GroupName="menu"
+                                 Style="{StaticResource NavButton}" Checked="Pedidos_Checked" /> 
+                    <RadioButton x:Name="rbCardapio" Content="Cardápio" GroupName="menu"
+                                 Style="{StaticResource NavButton}" Checked="Cardapio_Checked"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <ContentControl x:Name="Conteudo" Grid.Column="1"/>
     </Grid>
 </Window>

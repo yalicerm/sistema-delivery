@@ -14,6 +14,7 @@ namespace SistemaDelivery.DataBase
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<ItemPedido> ItensPedidos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Pagamento> Pagamentos { get; set; }
 
 
         // Configurando a conexão com o banco de dados (Encontra no README do próprio pacote SQL)
@@ -53,6 +54,20 @@ namespace SistemaDelivery.DataBase
                 .HasForeignKey(i => i.ProdutoId)
                 .OnDelete(DeleteBehavior.Restrict); //Impede apagar um produto se ele estiver associado a algum item de pedido
 
+            // Configurando o relacionamento 1x1 entre Pedido e Pagamento
+            modelBuilder.Entity<Pagamento>().HasKey(pg => pg.IdPagamento);
+            modelBuilder.Entity<Pedido>()
+                .HasOne(p => p.Pagamento)
+                .WithOne(pg => pg.Pedido)
+                .HasForeignKey<Pagamento>(pg => pg.PedidoId) //A FK fica no Pagamento; o EF cria um índice ÚNICO nela (garante o 1x1)
+                .OnDelete(DeleteBehavior.Cascade);           //Apagou o pedido, apaga o pagamento dele
+
+            modelBuilder.Entity<Pagamento>(pagamento =>
+            {
+                pagamento.Property(pg => pg.FormaPagamento).HasMaxLength(20).IsRequired();
+                pagamento.Property(pg => pg.ValorPago).HasColumnType("decimal(10,2)");
+            });
+
             // Fazendo algunas configurações adicionais --> Conversão de decimal (Evitar bugs número no banco dados)
             modelBuilder.Entity<Produto>()
                 .Property(p => p.Valor)
@@ -61,6 +76,10 @@ namespace SistemaDelivery.DataBase
             modelBuilder.Entity<Pedido>()
                 .Property(p => p.ValorTotal)
                 .HasColumnType("decimal(10,2)");
+
+            modelBuilder.Entity<Pedido>()
+                .Property(p => p.NomeComanda)
+                .HasMaxLength(100);
 
             modelBuilder.Entity<ItemPedido>()
                 .Property(i => i.PrecoUnitario)
@@ -80,6 +99,14 @@ namespace SistemaDelivery.DataBase
                     new Usuario { Id = 1, Cpf = "11111111111", Senha = "gerente123", Nome = "Gerente Teste", Cargo = "Gerente" },
                     new Usuario { Id = 2, Cpf = "22222222222", Senha = "atendente123", Nome = "Atendente Teste", Cargo = "Atendente" });
             });
+        }
+
+        //Chamado ao abrir o sistema (App.xaml.cs): cria o banco e aplica as migrations pendentes (Code First).
+        //Assim ninguém precisa rodar o Update-Database manualmente para usar o sistema.
+        public static void Inicializar()
+        {
+            using var db = new DeliveryDBContext();
+            db.Database.Migrate();
         }
 
     }

@@ -51,6 +51,36 @@ namespace SistemaDelivery.Migrations
                     b.ToTable("ItensPedidos");
                 });
 
+            modelBuilder.Entity("SistemaDelivery.Model.Pagamento", b =>
+                {
+                    b.Property<int>("IdPagamento")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPagamento"));
+
+                    b.Property<DateTime>("DataPagamento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FormaPagamento")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("PedidoId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ValorPago")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("IdPagamento");
+
+                    b.HasIndex("PedidoId")
+                        .IsUnique();
+
+                    b.ToTable("Pagamentos");
+                });
+
             modelBuilder.Entity("SistemaDelivery.Model.Pedido", b =>
                 {
                     b.Property<int>("IdPedido")
@@ -61,6 +91,11 @@ namespace SistemaDelivery.Migrations
 
                     b.Property<DateTime>("DataHora")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("NomeComanda")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -209,9 +244,22 @@ namespace SistemaDelivery.Migrations
                     b.Navigation("Produto");
                 });
 
+            modelBuilder.Entity("SistemaDelivery.Model.Pagamento", b =>
+                {
+                    b.HasOne("SistemaDelivery.Model.Pedido", "Pedido")
+                        .WithOne("Pagamento")
+                        .HasForeignKey("SistemaDelivery.Model.Pagamento", "PedidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pedido");
+                });
+
             modelBuilder.Entity("SistemaDelivery.Model.Pedido", b =>
                 {
                     b.Navigation("Itens");
+
+                    b.Navigation("Pagamento");
                 });
 #pragma warning restore 612, 618
         }

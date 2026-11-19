@@ -23,4 +23,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- Imagens usadas nas telas (logo, fundo do login e ícones) -->
+    <Resource Include="View\Assets\*.png;View\Assets\*.jpg" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,114 @@
+<Window x:Class="SistemaDelivery.View.PedidoModal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Pedido" Width="500" SizeToContent="Height"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterOwner"
+        FontFamily="{StaticResource AppFont}" Foreground="{StaticResource TextBrush}"
+        PreviewKeyDown="Window_PreviewKeyDown">
+
+    <Border Margin="14" Background="White" CornerRadius="8" Padding="24,22">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="18" ShadowDepth="0" Opacity="0.35"/>
+        </Border.Effect>
+
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Background="Transparent" Margin="0,0,0,18"
+                        MouseLeftButtonDown="Cabecalho_MouseLeftButtonDown">
+                <TextBlock
+                    FontFamily="{StaticResource IconFont}" FontSize="18"
+                           VerticalAlignment="Center"/>
+                <Image Source="/View/Assets/order.png" Width="20" Margin="0,0,10,0"/>
+                <TextBlock x:Name="txtTitulo" Text="Novo pedido" FontSize="14" FontWeight="Bold"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <TextBlock Text="Nome da comanda*" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="txtNome" Style="{StaticResource FieldTextBox}" MaxLength="100" Margin="0,0,0,16"/>
+
+            <StackPanel x:Name="pnlProdutos">
+                <TextBlock Text="Produtos*" Style="{StaticResource FieldLabel}"/>
+                <ComboBox x:Name="cmbProdutos" Style="{StaticResource FieldComboBox}"
+                          Tag="Selecione um produto" DisplayMemberPath="Nome"
+                          SelectionChanged="Produtos_SelectionChanged" Margin="0,0,0,12"/>
+            </StackPanel>
+
+            <!-- Itens do pedido -->
+            <ScrollViewer MinHeight="130" MaxHeight="210" VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="lstItens">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Style="{StaticResource RowCard}" Padding="12,8" Margin="0,0,0,8">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="66"/>
+                                        <ColumnDefinition Width="46"/>
+                                        <ColumnDefinition Width="78"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0" Text="{Binding Produto.Nome}" FontSize="11"
+                                               FontWeight="SemiBold" VerticalAlignment="Center"
+                                               TextTrimming="CharacterEllipsis"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding PrecoUnitario, Converter={StaticResource Moeda}}"
+                                               FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Column="2" Text="{Binding Produto.TempoPreparoMinutos, Converter={StaticResource Minutos}}"
+                                               FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                                    <!-- quantidade: − n + -->
+                                    <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center"
+                                                VerticalAlignment="Center">
+                                        <Button Style="{StaticResource IconButton}" Content="&#xE738;" Width="20" Height="20"
+                                                FontSize="8" Margin="0" ToolTip="Diminuir" Click="Diminuir_Click"/>
+                                        <TextBlock Text="{Binding Quantidade}" FontSize="10" Margin="8,0"
+                                                   VerticalAlignment="Center" MinWidth="10" TextAlignment="Center"/>
+                                        <Button Style="{StaticResource IconButton}" Content="&#xE710;" Width="20" Height="20"
+                                                FontSize="8" Margin="0" ToolTip="Aumentar" Click="Aumentar_Click"/>
+                                    </StackPanel>
+
+                                    <Button Grid.Column="4" Style="{StaticResource IconButton}" Content="&#xE74D;"
+                                            ToolTip="Remover" Click="Remover_Click"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <Border BorderBrush="{StaticResource LineBrush}" BorderThickness="0,1,0,0" Margin="0,12,0,0" Padding="0,12,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Tempo de espera:" FontSize="11" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" x:Name="txtTempo" Text="-" FontSize="11" FontWeight="Bold"
+                               Foreground="{StaticResource PrimaryBrush}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Total:" FontSize="11" FontWeight="SemiBold" Margin="0,6,0,0"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" x:Name="txtTotal" Text="R$0,00" FontSize="11" FontWeight="Bold"
+                               Foreground="{StaticResource PrimaryBrush}" Margin="0,6,0,0"/>
+                </Grid>
+            </Border>
+
+            <Grid Margin="0,18,0,0">
+                <Button Content="Fechar" Style="{StaticResource SecondaryButton}" HorizontalAlignment="Left"
+                        Click="Fechar_Click"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="btnCancelarPedido" Content="Cancelar pedido" Style="{StaticResource DangerButton}"
+                            Click="CancelarPedido_Click"/>
+                    <Button x:Name="btnConcluir" Content="Concluir pedido" Style="{StaticResource SuccessButton}"
+                            Margin="10,0,0,0" Click="Concluir_Click"/>
+                    <Button x:Name="btnSalvar" Content="Salvar" Style="{StaticResource PrimaryButton}"
+                            Margin="10,0,0,0" Click="Salvar_Click"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Border>
+</Window>
