@@ -76,9 +76,20 @@
                 </ItemsControl>
             </ScrollViewer>
 
+            <!-- Pagamento: escolhido ao concluir (pedido em andamento) ou só exibido (pedido entregue) -->
+            <StackPanel x:Name="pnlPagamento" Margin="0,12,0,0" Visibility="Collapsed">
+                <TextBlock x:Name="lblPagamento" Text="Forma de pagamento*" Style="{StaticResource FieldLabel}"/>
+                <ComboBox x:Name="cmbPagamento" Style="{StaticResource FieldComboBox}"
+                          Tag="Selecione na hora de concluir" DisplayMemberPath="Nome"
+                          SelectionChanged="Pagamento_SelectionChanged"/>
+                <TextBlock x:Name="txtPagamentoRealizado" FontSize="11" FontWeight="SemiBold"
+                           Foreground="{StaticResource PrimaryBrush}" Visibility="Collapsed"/>
+            </StackPanel>
+
             <Border BorderBrush="{StaticResource LineBrush}" BorderThickness="0,1,0,0" Margin="0,12,0,0" Padding="0,12,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
@@ -93,6 +104,12 @@
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Total:" FontSize="11" FontWeight="SemiBold" Margin="0,6,0,0"/>
                     <TextBlock Grid.Row="1" Grid.Column="1" x:Name="txtTotal" Text="R$0,00" FontSize="11" FontWeight="Bold"
                                Foreground="{StaticResource PrimaryBrush}" Margin="0,6,0,0"/>
+
+                    <!-- Aparece quando a forma de pagamento muda o valor (ex: desconto no Pix) -->
+                    <TextBlock Grid.Row="2" Grid.Column="0" x:Name="lblValorPagar" Text="Valor a pagar:" FontSize="11"
+                               FontWeight="SemiBold" Margin="0,6,0,0" Visibility="Collapsed"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" x:Name="txtValorPagar" FontSize="11" FontWeight="Bold"
+                               Foreground="{StaticResource SuccessBrush}" Margin="0,6,0,0" Visibility="Collapsed"/>
                 </Grid>
             </Border>
 

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using SistemaDelivery.Control.FormasPagamento;
 using SistemaDelivery.DataBase;
 using SistemaDelivery.Model;
 
@@ -29,6 +30,7 @@ public class PedidoService
         using var db = new DeliveryDBContext();
         return db.Pedidos.AsNoTracking()
                  .Include(p => p.Itens).ThenInclude(i => i.Produto)
+                 .Include(p => p.Pagamento)
                  .FirstOrDefault(p => p.IdPedido == idPedido)
                ?? throw new RegraDeNegocioException("Pedido não encontrado.");
     }
@@ -92,21 +94,38 @@ public class PedidoService
         return pedido;
     }
 
-    public void Concluir(int idPedido) => AlterarStatus(idPedido, StatusPedido.Entregue);
+    // Concluir = registrar o pagamento (Strategy escolhida na tela) e marcar o pedido como entregue
+    public void Concluir(int idPedido, IFormaPagamento? formaPagamento)
+    {
+        if (formaPagamento is null)
+            throw new RegraDeNegocioException("Selecione a forma de pagamento.");
 
-    public void Cancelar(int idPedido) => AlterarStatus(idPedido, StatusPedido.Cancelado);
+        using var db = new DeliveryDBContext();
+        var pedido = BuscarEmAndamento(db, idPedido);
 
-    private static void AlterarStatus(int idPedido, string novoStatus)
+        new PagamentoService().RegistrarPagamento(pedido, formaPagamento);
+        pedido.Status = StatusPedido.Entregue;
+
+        db.SaveChanges(); // salva o status e o Pagamento (1x1) juntos
+    }
+
+    public void Cancelar(int idPedido)
     {
         using var db = new DeliveryDBContext();
+        var pedido = BuscarEmAndamento(db, idPedido);
 
-        var pedido = db.Pedidos.Find(idPedido)
+        pedido.Status = StatusPedido.Cancelado;
+        db.SaveChanges();
+    }
+
+    private static Pedido BuscarEmAndamento(DeliveryDBContext db, int idPedido)
+    {
+        var pedido = db.Pedidos.Include(p => p.Pagamento).FirstOrDefault(p => p.IdPedido == idPedido)
                      ?? throw new RegraDeNegocioException("Pedido não encontrado.");
 
         if (pedido.Status != StatusPedido.EmAndamento)
             throw new RegraDeNegocioException("Este pedido já foi finalizado.");
 
-        pedido.Status = novoStatus;
-        db.SaveChanges();
+        return pedido;
     }
 }

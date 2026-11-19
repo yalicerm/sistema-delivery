@@ -17,10 +17,10 @@ namespace SistemaDelivery.Control
         {
             // Regra do 1x1: um pedido não pode ser pago duas vezes
             if (pedido.Pagamento != null)
-                throw new InvalidOperationException("Este pedido já foi pago.");
+                throw new RegraDeNegocioException("Este pedido já foi pago.");
 
             if (pedido.ValorTotal <= 0)
-                throw new InvalidOperationException("O pedido não tem valor a pagar.");
+                throw new RegraDeNegocioException("O pedido não tem valor a pagar.");
 
             var pagamento = new Pagamento
             {

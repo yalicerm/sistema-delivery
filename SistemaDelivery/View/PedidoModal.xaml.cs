@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using SistemaDelivery.Control;
+using SistemaDelivery.Control.FormasPagamento;
 using SistemaDelivery.Model;
 
 namespace SistemaDelivery.View;
@@ -44,11 +45,15 @@ public partial class PedidoModal : Window
         if (_pedido.Status == StatusPedido.EmAndamento)
         {
             txtTitulo.Text = "Editar pedido";
+            // Pedido em andamento: escolhe a forma de pagamento para concluir
+            cmbPagamento.ItemsSource = FormasPagamentoDisponiveis.Todas;
+            pnlPagamento.Visibility = Visibility.Visible;
             return;
         }
 
         // Somente leitura
         txtTitulo.Text = "Visualizar pedido";
+        MostrarPagamentoRealizado(_pedido.Pagamento);
         txtNome.IsReadOnly = true;
         lstItens.IsHitTestVisible = false;
         pnlProdutos.Visibility = Visibility.Collapsed;
@@ -119,13 +124,23 @@ public partial class PedidoModal : Window
 
     private void Concluir_Click(object sender, RoutedEventArgs e)
     {
-        if (_pedido is null || !Mensagens.Confirmar(this, "Marcar este pedido como entregue?"))
+        if (_pedido is null)
+            return;
+
+        if (cmbPagamento.SelectedItem is not IFormaPagamento forma)
+        {
+            Mensagens.Aviso(this, "Selecione a forma de pagamento para concluir o pedido.");
+            return;
+        }
+
+        var valorFinal = forma.CalcularValorFinal(PedidoService.CalcularTotal(_itens));
+        if (!Mensagens.Confirmar(this, $"Concluir o pedido com pagamento via {forma.Nome} de {Formatos.Moeda(valorFinal)}?"))
             return;
 
         try
         {
             _pedidos.Salvar(_pedido.IdPedido, txtNome.Text, _itens); // guarda alterações pendentes
-            _pedidos.Concluir(_pedido.IdPedido);
+            _pedidos.Concluir(_pedido.IdPedido, forma);              // registra o pagamento e marca como entregue
             DialogResult = true;
         }
         catch (Exception ex)
@@ -166,8 +181,38 @@ public partial class PedidoModal : Window
 
     private void AtualizarResumo()
     {
+        var total = PedidoService.CalcularTotal(_itens);
         txtTempo.Text = Formatos.Minutos(PedidoService.CalcularTempoEspera(_itens));
-        txtTotal.Text = Formatos.Moeda(PedidoService.CalcularTotal(_itens));
+        txtTotal.Text = Formatos.Moeda(total);
+
+        // Mostra "Valor a pagar" só quando a forma escolhida muda o valor (ex: desconto no Pix)
+        var valorFinal = (cmbPagamento.SelectedItem as IFormaPagamento)?.CalcularValorFinal(total) ?? total;
+        MostrarValorAPagar(valorFinal != total ? valorFinal : null);
+    }
+
+    private void Pagamento_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        => AtualizarResumo();
+
+    private void MostrarValorAPagar(decimal? valor)
+    {
+        var visibilidade = valor is null ? Visibility.Collapsed : Visibility.Visible;
+        lblValorPagar.Visibility = visibilidade;
+        txtValorPagar.Visibility = visibilidade;
+        txtValorPagar.Text = valor is null ? "" : Formatos.Moeda(valor.Value);
+    }
+
+    // Pedido entregue: mostra como foi pago (sem ComboBox)
+    private void MostrarPagamentoRealizado(Pagamento? pagamento)
+    {
+        if (pagamento is null)
+            return;
+
+        pnlPagamento.Visibility = Visibility.Visible;
+        lblPagamento.Text = "Pagamento";
+        cmbPagamento.Visibility = Visibility.Collapsed;
+        txtPagamentoRealizado.Visibility = Visibility.Visible;
+        txtPagamentoRealizado.Text =
+            $"Pago via {pagamento.FormaPagamento}: {Formatos.Moeda(pagamento.ValorPago)} em {pagamento.DataPagamento:dd/MM/yyyy HH:mm}";
     }
 
     private void Cabecalho_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
